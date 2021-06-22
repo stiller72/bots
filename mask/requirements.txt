@@ -1,0 +1,9 @@
+discord.py[voice]
+aiohttp
+tekore
+git+https://github.com/3jackdaws/soundcloud-lib
+mysql-connector-python
+dblpy
+wavelink
+youtube-search-python
+psutil
