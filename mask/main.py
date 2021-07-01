@@ -1,49 +1,68 @@
 import discord
 from discord.ext import commands
-import os
-from conf import settings
+import conf
 import backend
-import json
-import youtube_dl
+import os 
 
+bot = commands.Bot(command_prefix=conf.PREFIX)
 
-ydl_opts = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
+# discord.on_command(ctx):
+question_string = ["про", "как", "зачем",
+                   "почему", "откуда",
+                   "где", "какой", "какая",
+                   "какое", "чей",
+                   "что", "кто"]
+
+styles_list = {
+    1: "теорию заговора", 2: "репортаж", 3: "тост", 4: "цитату",
+    5: "слоган", 6: "историю", 7: "instagram",
+    8: "википедия", 9: "фильм", 10: "гороскоп", 11: "мудрость",
+
 }
 
 
-def endSong(guild, path):
-    os.remove(path)
+def get_emoj(emoji: str):
+    return discord.utils.get(bot.emojis, name=emoji)
 
 
-class MyClient(discord.Client):
+@bot.command(name='расскажи')
+async def balaboba(ctx, start_string: str = '', *args):
+    style = 0
 
-    def get_emoji(self, emoji):
-        return discord.utils.get(client.emojis, name=emoji)
+    if not start_string:
+        await ctx.send('Ты ебанутый? Чиво рассказать?')
+        return
 
+    question = ' '.join([i for i in args])
 
-client = MyClient()
+    for value, style_desc in styles_list.items():
+        if style_desc in question:
+            style = value
 
+    if not style:
+        style = 0
+    if start_string in question_string:
+        start_string = ''
+    else:
+        pass
 
-@client.event
-async def on_message(message):
-    if message.content.startswith('расскажи'):
-        body = message.content
-        question = {"query": body, "style": 1}
+    body = f'{start_string } ' + question
+    question = {"query": body, "style": style}
+    print(question)
+    try:
         answer = backend.balaboba(question)
-        await message.channel.send(f'{body}{answer}')
-    elif message.content.startswith('спасибо'):
-        aga = client.get_emoji("aga")
-        await message.add_reaction(aga)
+    except BackendError:
+        pass
+    await ctx.send(f'{answer}')
+
+@bot.listen()
+async def on_message(message):
+    if message.content.startswith('спасибо'):
+        aga = get_emoj("aga")
         await message.channel.send(f'Всегда готов сосать хуи {aga}')
 
 
-@client.event
+@bot.listen()
 async def on_message(message):
     if message.content.startswith('включи'):
         channel = message.author.voice.channel
@@ -59,19 +78,19 @@ async def on_message(message):
         await voice_client.play("https://open.spotify.com/track/55qmtyvnYHkLsnEZGzrj8C?si=3d77f40795824951")
 
 
-@client.event
+@bot.event
 async def on_ready():
-    channel = client.get_channel(828677373054287946)
-    # await channel.send(f'Залетаю в хату')
+    channel = bot.get_channel(828677373054287946)
+    await channel.send(f'Залетаю в хату')
 
 
-@client.event
+@bot.event
 async def on_resumed():
     await channel.send('Я вернулся')
 
 
-@client.event
+@bot.event
 async def on_error():
     await channel.send('Кароче я сломался, бачок потик, иди нахуй')
 
-client.run(settings['token'])
+bot.run(conf.TOKEN)

@@ -1,4 +1,5 @@
 import subprocess
+from exc import *
 
 
 def balaboba(context):
@@ -9,10 +10,9 @@ def balaboba(context):
         process.wait()
         output = process.stdout.read()
     except:
-        return None
+        raise BackendError
     return output.decode("utf-8")
 
 
 if __name__ == '__main__':
     print(balaboba({"query": "d", "style": 1}))
-

@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+venv/
 develop-eggs/
 dist/
 downloads/
@@ -129,4 +130,4 @@ dmypy.json
 .pyre/
 
 # MacOS trash
-.DS_store
+.DS_Store
