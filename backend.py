@@ -1,4 +1,5 @@
 import subprocess
+from exc import BackendError
 
 
 def balaboba(context):
@@ -9,7 +10,7 @@ def balaboba(context):
         process.wait()
         output = process.stdout.read()
     except:
-        return None
+        raise BackendError
     return output.decode("utf-8")
 
 
