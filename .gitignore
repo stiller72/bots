@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+venv/
 develop-eggs/
 dist/
 downloads/
@@ -26,6 +27,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+*sublime-project
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -129,4 +131,4 @@ dmypy.json
 .pyre/
 
 # MacOS trash
-.DS_store
+.DS_Store
