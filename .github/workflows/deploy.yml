@@ -1,0 +1,31 @@
+name: Create and publish a Docker image
+
+on:
+  push:
+    branches: ['main']
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout project
+    - uses: actions/checkout@v2
+  
+    - name: Add SSH Credentials
+      uses: shimatoro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }} # required, should match up with your deploy targets (see below)
+    
+    - name: Deploy to Staging
+      uses: JorgenVatle/docker-compose-deploy@v1.0
+      with:
+        deploy_targets: '188.225.74.203'
+        ssh_user: 'root' 
+        compose_file: 'docker-compose.yml'
+        validate_container: 'app'
+  
