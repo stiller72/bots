@@ -38,4 +38,4 @@ jobs:
           context: ./docker
           dockerfile: Dockerfile
           push: true
-          tags: stiller72/{env.IMAGE_NAME}:v.0.{env.VERSION}
+          tags: stiller72/${{ env.IMAGE_NAME }}:v.0.${{ env.VERSION }}
