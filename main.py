@@ -4,7 +4,10 @@ import backend
 import os
 from exceptions import BackendError
 
-bot = commands.Bot(command_prefix=conf.PREFIX)
+prefix = os.environ.get("PREFIX")
+token = os.environ.get("TOKEN")
+
+bot = commands.Bot(command_prefix=prefix)
 
 # discord.on_command(ctx):
 question_string = ["про", "как", "зачем",
@@ -84,4 +87,4 @@ async def on_ready():
 async def on_error():
     await channel.send('Кароче я сломался, бачок потик, иди нахуй')
 
-bot.run(conf.TOKEN)
+bot.run(token)

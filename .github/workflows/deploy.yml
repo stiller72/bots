@@ -19,7 +19,7 @@ jobs:
       uses: shimatoro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }} # required, should match up with your deploy targets (see below)
+        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
     
     - name: Deploy to Staging
       uses: JorgenVatle/docker-compose-deploy@v1.0

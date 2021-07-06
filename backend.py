@@ -1,5 +1,5 @@
 import subprocess
-from exc import BackendError
+from exceptions import BackendError
 
 
 def balaboba(context):
@@ -12,7 +12,3 @@ def balaboba(context):
     except:
         raise BackendError
     return output.decode("utf-8")
-
-
-if __name__ == '__main__':
-    print(balaboba({"query": "d", "style": 1}))
