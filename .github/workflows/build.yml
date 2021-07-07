@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: "${REGISTRY}/${{ github.repository }}/image-name"
   VERSION: ${{ github.run_number }}
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
@@ -37,4 +37,5 @@ jobs:
         with:
           file: ./docker/Dockerfile
           push: true
+          load: true
           tags: ${{ env.IMAGE_NAME }}:v.0.${{ env.VERSION }}
