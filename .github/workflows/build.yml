@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: "ghcr.io/${{ github.repository }}/image-name"
+  IMAGE_NAME: "ghcr.io/${{ github.repository }}/mask"
   VERSION: ${{ github.run_number }}
 
 jobs:
@@ -36,4 +36,8 @@ jobs:
         with:
           file: ./docker/Dockerfile
           tags: ${{ env.IMAGE_NAME }}:v.0.${{ env.VERSION }}
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
+      
+      - name: Dump context
+        if: always()
+        uses: crazy-max/ghaction-dump-context@v1

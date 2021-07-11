@@ -16,7 +16,4 @@ WORKDIR /var/mask/
 
 COPY . .
 
-# EXPOSE 127.0.0.1:80:80
-
-CMD ["python","-m", "main.py"]
-# CMD ["bash"]
+ENTRYPOINT ["python", "-m", "main.py"]
