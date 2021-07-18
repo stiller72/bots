@@ -5,27 +5,34 @@ on:
     branches: ['main']
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: "ghcr.io/${{ github.repository }}/mask"
+  REMOTE_USER: "root"
+  REMOTE_HOST: "cumerun.fun"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout project
-    - uses: actions/checkout@v2
+      - name: checkout project
+        uses: actions/checkout@v2
   
-    - name: Add SSH Credentials
-      uses: shimatoro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }} # required, should match up with your deploy targets (see below)
-    
-    - name: Deploy to Staging
-      uses: JorgenVatle/docker-compose-deploy@v1.0
-      with:
-        deploy_targets: '188.225.74.203'
-        ssh_user: 'root' 
-        compose_file: 'docker-compose.yml'
-        validate_container: 'app'
-  
+      - name: Deploy to Docker swarm
+      
+        inputs:
+          docker_env:
+            TOKEN: ${{ secrets.TOKEN }}
+            PREFIX: "макс "
+            CHANNEL: "855739037762846760"
+
+        uses: wshihadeh/docker-deployment-action@v1
+        with:
+          remote_docker_host: "{{ env.REMOTE_USER }@{{ env.REMOTE_HOST }}"
+          ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          ssh_public_key: ${{ secrets.SSH_KNOWN_HOSTS }}
+          deployment_mode: docker-swarm
+          copy_stack_file: true
+          deploy_path: /var/mask
+          stack_file_name: docker-compose.yaml
+          keep_files: 5
+          args: 
+            - ${{ inputs.docker_env }}
