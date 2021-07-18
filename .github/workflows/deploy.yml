@@ -18,7 +18,7 @@ jobs:
   
       - name: Deploy to Docker swarm
       
-        inputs:
+        env:
           docker_env:
             TOKEN: ${{ secrets.TOKEN }}
             PREFIX: "макс "
@@ -35,4 +35,4 @@ jobs:
           stack_file_name: docker-compose.yaml
           keep_files: 5
           args: 
-            - ${{ inputs.docker_env }}
+            - ${{ env.docker_env }}
