@@ -31,7 +31,6 @@ jobs:
           deploy_path: /var/mask
           stack_file_name: docker-compose.yaml
           keep_files: 5
-          args: 
-            - ${{ env.TOKEN }}
-            - ${{ env.PREFIX }}
-            - ${{ env.CHANNEL }}
+          args: environment  TOKEN=${{ env.TOKEN }} \
+                             PREFIX=${{ env.PREFIX }} \
+                             CHANNEL=${{ env.CHANNEL }}
