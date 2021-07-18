@@ -19,10 +19,9 @@ jobs:
       - name: Deploy to Docker swarm
       
         env:
-          docker_env:
-            TOKEN: ${{ secrets.TOKEN }}
-            PREFIX: "макс "
-            CHANNEL: "855739037762846760"
+          TOKEN: ${{ secrets.TOKEN }}
+          PREFIX: "макс "
+          CHANNEL: "855739037762846760"
 
         uses: wshihadeh/docker-deployment-action@v1
         with:
@@ -35,4 +34,6 @@ jobs:
           stack_file_name: docker-compose.yaml
           keep_files: 5
           args: 
-            - ${{ env.docker_env }}
+            - ${{ env.TOKEN }}
+            - ${{ env.PREFIX }}
+            - ${{ env.CHANNEL }}
