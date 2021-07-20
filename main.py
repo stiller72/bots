@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
-from core import backend
+import core.backend as backend
 import os
-from exceptions import BackendError
 
 prefix = os.environ.get("PREFIX")
 token = os.environ.get("TOKEN")
@@ -36,11 +35,13 @@ async def on_message(message):
 @bot.event
 async def on_ready():
     channel = bot.get_channel(828677373054287946)
-    await channel.send(f'Залетаю в хату')
+    await channel.send('Залетаю в хату')
 
 
 @bot.event
 async def on_error():
+    channel = bot.get_channel(828677373054287946)
     await channel.send('Кароче я сломался, бачок потик, иди нахуй')
+
 
 bot.run(token)
