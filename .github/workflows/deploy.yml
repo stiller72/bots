@@ -1,5 +1,5 @@
 ---
-name: Create and publish a Docker image
+name: Deploy docker image
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
         uses: wshihadeh/docker-deployment-action@v1
         with:
           remote_docker_host: "${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}"
-          ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_KNOWN_HOSTS }}
           deployment_mode: docker-swarm
           copy_stack_file: true
