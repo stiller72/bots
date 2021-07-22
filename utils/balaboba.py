@@ -2,19 +2,19 @@ import subprocess
 from var import question_list, styles_list
 from exceptions import BackendError
 
-
 async def fetch_boba(context):
     query = context.get("query")
     style = context.get("style")
     print(query, style)
-    try:
-        process = subprocess.Popen(["./fetch.sh", f"{query}", f'{style}'],
-                                   stdout=subprocess.PIPE)
-        process.wait()
-        output = process.stdout.read()
-    except TypeError:
+
+    process = subprocess.Popen(["./fetch.sh", f"{query}", f'{style}'],
+                               stdout=subprocess.PIPE)
+    process.wait()
+    output = process.stdout.read()
+    if output:
+        return output.decode("utf-8")
+    else:
         raise BackendError
-    return output.decode("utf-8")
 
 
 async def get_style(question: str):

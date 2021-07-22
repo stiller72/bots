@@ -9,7 +9,6 @@ env:
   IMAGE_NAME: "ghcr.io/${{ github.repository }}/mask"
   REMOTE_USER: "root"
   REMOTE_HOST: "cumerun.fun"
-  TOKEN: ${{ secrets.TOKEN }}
   PREFIX: "макс "
   CHANNEL: "855739037762846760"
 
@@ -20,18 +19,17 @@ jobs:
       - name: checkout project
         uses: actions/checkout@v2
 
-      - name: Deploy to Docker swarm
+      - name: Deploy docker-compose
 
         uses: wshihadeh/docker-deployment-action@v1
         with:
           remote_docker_host: "${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
-          deployment_mode: docker-swarm
-          copy_stack_file: true
+          deployment_mode: docker-compose
           deploy_path: /var/mask
           stack_file_name: docker-compose.yaml
           keep_files: 5
-          args: environment  TOKEN=${{ env.TOKEN }} \
+          args: environment  TOKEN=${{ secrets.TOKEN }} \
                              PREFIX=${{ env.PREFIX }} \
                              CHANNEL=${{ env.CHANNEL }}

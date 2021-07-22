@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import core.backend as backend
 import os
+from var import pizza_list
 
 prefix = os.environ.get("PREFIX")
 token = os.environ.get("TOKEN")
@@ -28,8 +29,11 @@ async def balaboba(ctx, start_string: str = '', *args):
 @bot.listen()
 async def on_message(message):
     if message.content.startswith('спасибо'):
-        aga = get_emoj("aga")
-        await message.channel.send(f'Всегда готов сосать хуи {aga}')
+        aga = await get_emoj("aga")
+        await message.channel.send(f'Всегда на месте {aga}')
+    if set(message.content).intersection(pizza_list):
+        pizza = await get_emoj("pizza")
+        await message.channel.send(f'{pizza}')
 
 
 @bot.event
