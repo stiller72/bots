@@ -3,7 +3,10 @@ name: Deploy docker image
 
 on:
   push:
-    branches: ['main']
+    branches:
+      - 'main'
+    paths:
+      - 'src/**'
 
 env:
   IMAGE_NAME: "ghcr.io/${{ github.repository }}/mask"

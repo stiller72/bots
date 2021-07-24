@@ -18,12 +18,14 @@ Features
 ---
 
 - Balaboba integration via yandexAPI
-![balaboba](https://ibb.co/xgnzhTx)
+![balaboba](https://github.com/stiller72/mask/blob/main/.github/img/Screenshot%202021-07-24%20at%2016.20.36.png)
 
 - Eating
-![eat](https://ibb.co/yR3sRG1)
+![eat](https://github.com/stiller72/mask/blob/main/.github/img/Screenshot%202021-07-24%20at%2016.43.30.png)
 
 See more official documentation
 ---
 
-![Link](https://discordpy.readthedocs.io/en/latest/api.html)
+[Link][]
+
+[Link]: https://discordpy.readthedocs.io/en/latest/api.html
