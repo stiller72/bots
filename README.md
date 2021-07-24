@@ -10,22 +10,20 @@ Requirements:
 
 Deployment with docker stack
 
-To deploy, run the following in your terminal:
+To deploy, run the following command in your terminal:
 ```
 $ docker stack deploy docker-compose.yml 
 ```
 Features
 ---
 
-- **Balaboba integration via yandexAPI**
+- Balaboba integration via yandexAPI
 ![balaboba](https://ibb.co/xgnzhTx)
 
-- **Eating**
+- Eating
 ![eat](https://ibb.co/yR3sRG1)
 
 See more official documentation
 ---
 
-Link: [documentation]
-
-[documentation]: https://discordpy.readthedocs.io/en/latest/api.html
+![Link](https://discordpy.readthedocs.io/en/latest/api.html)
