@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import core.backend as backend
 import os
 from var import pizza_list
 
@@ -46,6 +45,5 @@ async def on_ready():
 async def on_error():
     channel = bot.get_channel(828677373054287946)
     await channel.send('Кароче я сломался, бачок потик, иди нахуй')
-
 
 bot.run(token)
